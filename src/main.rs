@@ -45,7 +45,7 @@ fn main() {
 
         // Connect callbacks
         // When a button is clicked, `number` and label of the other button will be changed
-        &button_increase.connect_clicked(glib::clone!(
+        let _ = button_increase.connect_clicked(glib::clone!(
             #[weak]
             number,
             #[weak]
@@ -54,19 +54,19 @@ fn main() {
             button_decrease,
             move |_| {
                 number.set(number.get() + 1);
-                &button_decrease.set_label(&number.get().to_string());
-                button_increase.set_label("+")
+                let _ = &button_decrease.set_label(&number.get().to_string());
+                let _ = &button_increase.set_label("+");
             }
         ));
-        &button_decrease.connect_clicked(glib::clone!(
+        let _ = button_decrease.connect_clicked(glib::clone!(
             #[weak]
             button_increase,
             #[weak]
             button_decrease,
             move |_| {
                 number.set(number.get() - 1);
-                &button_increase.set_label(&number.get().to_string());
-                button_decrease.set_label("-")
+                let _ = &button_increase.set_label(&number.get().to_string());
+                let _ = &button_decrease.set_label("-");
             }
         ));
 
@@ -80,7 +80,7 @@ fn main() {
                 .authors(["Axel Andaroth", "HEXOFO"])
                 .logo(&logo)
                 .build();
-        &button_about.connect_clicked(move |_| dialog.present());
+        let _ = button_about.connect_clicked(move |_| dialog.present());
 
         let container = gtk::Box::builder() // box container
             .orientation(Orientation::Vertical) // as a column
